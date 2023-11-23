@@ -73,30 +73,38 @@ class _UnChantState extends State<UnChant> {
                       Navigator.pop(context);
                     },
                   ),
-                  Column(
-                    children: [
-                      Text(
-                        /*(leNumero + 1).toString() +
-                            " . " +
-                            donnees[leNumero.toString()]["titre"].toString()*/
-                        title,
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      Container(
-                        width: 350,
-                        height: 3,
-                        color: Colors.white,
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 10, bottom: 10),
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          original,
+                  Flexible(
+                    child: Column(
+                      children: [
+                        Html(data: title, style: {
+                          "body": Style(
+                              fontSize: FontSize(14.0),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        }),
+                        /*Text(
+                          /*(leNumero + 1).toString() +
+                              " . " +
+                              donnees[leNumero.toString()]["titre"].toString()*/
+                          title,
                           style: TextStyle(color: Colors.white),
+                        ),*/
+                        Container(
+                          //width: 350,
+                          height: 3,
+                          color: Colors.white,
                         ),
-                      )
-                    ],
+                        Container(
+                          margin: EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            original,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ],
               ),
