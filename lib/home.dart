@@ -153,7 +153,7 @@ class _HomeState extends State<Home> {
                           ));
                         });
                   } else {
-                    return CircularProgressIndicator();
+                    return Center(child: CircularProgressIndicator());
                   }
                 },
               ),
