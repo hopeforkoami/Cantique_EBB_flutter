@@ -80,7 +80,7 @@ class _HomeState extends State<Home> {
                     //log("le nombre d element " + donnees.length.toString());
 
                     return GridView.builder(
-                        itemCount: 257,
+                        itemCount: 454,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2, crossAxisSpacing: 10),
                         itemBuilder: (context, index) {

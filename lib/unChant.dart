@@ -239,7 +239,7 @@ class _UnChantState extends State<UnChant> {
                                                 ),
                                               ),
                                               Html(
-                                                  data: donnees[leNumero
+                                                  data: donnees[currentId
                                                               .toString()]
                                                           ["refrain"]
                                                       .toString(),
