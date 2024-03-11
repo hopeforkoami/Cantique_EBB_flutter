@@ -118,7 +118,7 @@ class _SearchState extends State<Search> {
     } else {
       if ((donnees != null) && (source != null)) {
         int cpt = 0;
-        for (var i = 0; i < 257; i++) {
+        for (var i = 0; i < (donnees["Size"] - 3); i++) {
           if (source[i.toString()] != null) {
             //log("research value " + htmlEscape.convert(filterWord));
             if (/*(source[i.toString()]["titre"]
