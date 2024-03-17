@@ -28,6 +28,7 @@ class _UnChantState extends State<UnChant> {
   String traducteur = "";
   String receuil = "";
   String theme = "";
+  String copyright = "";
   List<String> emptyRefrain = ["<p>&nbsp;</p>", "<p>\n\n</p>"];
   dynamic donnees = [];
   String typeAffichage = "text";
@@ -61,6 +62,9 @@ class _UnChantState extends State<UnChant> {
             theme = data[i.toString()]["theme"] == null
                 ? "unverifed"
                 : data[i.toString()]["theme"].toString();
+            copyright = data[i.toString()]["copyright"] == "<p>&nbsp;</p>"
+                ? "undefined"
+                : data[i.toString()]["copyright"].toString();
           });
           //log("le current id est " + currentId.toString());
         }
@@ -117,7 +121,7 @@ class _UnChantState extends State<UnChant> {
                           width: MediaQuery.of(context).size.width * 0.8,
                           alignment: Alignment.centerRight,
                           child: Text(
-                            original,
+                            original != "<p>&nbsp;</p>" ? original : "",
                             style: TextStyle(color: Colors.white),
                           ),
                         )
@@ -395,7 +399,14 @@ class _UnChantState extends State<UnChant> {
       );
     } else if (typeAffichage == "note") {
       return Center(
-        child: Text("La Partition n'est pas encore disponible"),
+        child: Text(
+          "La Partition n'est pas encore disponible",
+          style: TextStyle(
+              color: Colors.black,
+              fontFamily: csts.primaryFont,
+              fontWeight: FontWeight.bold,
+              fontSize: 16),
+        ),
       );
     } else if (typeAffichage == "details") {
       return detailSection();
@@ -421,85 +432,83 @@ class _UnChantState extends State<UnChant> {
         color: Colors.black87, fontFamily: csts.primaryFont, fontSize: 14);
     String baseUrl = "https://www.youtube.com/results?search_query=";
     String callUrl = "";
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.only(left: 10, right: 10),
-          margin: EdgeInsets.only(bottom: 50),
-          //details text
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                      child: Text(
-                    "Titre : ",
-                    style: style_text_libelle,
-                  )),
-                  Expanded(
-                      child: Html(data: title, style: {
-                    "body": Style(
-                        fontSize: FontSize(14.0),
-                        color: Colors.black,
-                        fontFamily: csts.primaryFont,
-                        fontWeight: FontWeight.normal),
-                  })),
-                ],
-              ),
-              Container(
-                height: 5,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                      child: Text("Original : ", style: style_text_libelle)),
-                  Expanded(child: Text(original, style: style_text_valeur))
-                ],
-              ),
-              Container(
-                height: 5,
-              ),
-              Row(
-                children: [
-                  Expanded(child: Text("Auteur : ", style: style_text_libelle)),
-                  Expanded(child: Text(auteur, style: style_text_valeur))
-                ],
-              ),
-              Container(
-                height: 5,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                      child: Text("Traducteur : ", style: style_text_libelle)),
-                  Expanded(child: Text(traducteur, style: style_text_valeur))
-                ],
-              ),
-              Container(
-                height: 5,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                      child: Text("Receuil : ", style: style_text_libelle)),
-                  Expanded(child: Text(receuil, style: style_text_valeur))
-                ],
-              ),
-              Container(
-                height: 5,
-              ),
-              Row(
-                children: [
-                  Expanded(child: Text("Theme : ", style: style_text_libelle)),
-                  Expanded(child: Text(theme, style: style_text_valeur))
-                ],
-              ),
-            ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.only(left: 10, right: 10),
+            margin: EdgeInsets.only(bottom: 50),
+            //details text
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                        child: Text("Version Originale : ",
+                            style: style_text_libelle)),
+                    Expanded(
+                        child: Text(
+                            original != "<p>&nbsp;</p>"
+                                ? original
+                                : "Undefined",
+                            style: style_text_valeur))
+                  ],
+                ),
+                Container(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Text("Auteur : ", style: style_text_libelle)),
+                    Expanded(child: Text(auteur, style: style_text_valeur))
+                  ],
+                ),
+                Container(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child:
+                            Text("Traducteur : ", style: style_text_libelle)),
+                    Expanded(child: Text(traducteur, style: style_text_valeur))
+                  ],
+                ),
+                Container(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Text("Receuil : ", style: style_text_libelle)),
+                    Expanded(child: Text(receuil, style: style_text_valeur))
+                  ],
+                ),
+                Container(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Text("Theme : ", style: style_text_libelle)),
+                    Expanded(child: Text(theme, style: style_text_valeur))
+                  ],
+                ),
+                Container(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Text("Copyright : ", style: style_text_libelle)),
+                    Expanded(child: Text(copyright, style: style_text_valeur))
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
-        Expanded(
-          //video or audio link
-          child: InkWell(
+          InkWell(
             child: Container(
               height: 200,
               decoration: BoxDecoration(
@@ -514,19 +523,24 @@ class _UnChantState extends State<UnChant> {
               ),
             ),
             onTap: () =>
-                {_launchInBrowser(baseUrl + updateStringForResearch())},
+                launchUrl(Uri.parse(baseUrl + updateStringForResearch())),
           ),
-        ),
-        Container(
-          height: 50,
-        )
-      ],
+          Container(
+            height: 50,
+          )
+        ],
+      ),
     );
   }
 
   Future<void> _launchInBrowser(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launch(
+        url,
+        forceSafariVC: false,
+        forceWebView: false,
+        headers: <String, String>{'my_header_key': 'my_header_value'},
+      );
     } else {
       throw 'Could not launch $url';
     }
