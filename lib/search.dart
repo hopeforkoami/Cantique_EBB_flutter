@@ -43,7 +43,7 @@ class _SearchState extends State<Search> {
 
   Widget buildSongList() {
     return GridView.builder(
-        itemCount: (donnees["Size"] != null) ? donnees["Size"] - 3 : 0,
+        itemCount: (donnees["Size"] != null) ? donnees["Size"] : 0,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, crossAxisSpacing: 10),
         itemBuilder: (context, index) {
