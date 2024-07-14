@@ -112,18 +112,20 @@ class _SearchState extends State<Search> {
 
   void _runFilter(String filterWord) {
     Map<String, dynamic> temps = Map();
+    donnees = source;
     if (filterWord.isEmpty) {
-      donnees = source;
       temps = source;
     } else {
       if ((donnees != null) && (source != null)) {
         int cpt = 0;
-        for (var i = 0; i < (donnees["Size"] - 3); i++) {
+        log(filterWord);
+        for (var i = 0; i < (donnees["Size"]); i++) {
           if (source[i.toString()] != null) {
             //log("research value " + htmlEscape.convert(filterWord));
-            if (/*(source[i.toString()]["titre"]
+            if ((source[i.toString()]["titre"]
                     .toString()
-                    .contains(filterWord)) ||*/
+                    .toLowerCase()
+                    .contains(filterWord.toLowerCase())) ||
                 (source[i.toString()]["id"].toString().contains(filterWord))) {
               temps[cpt.toString()] = source[i.toString()];
               cpt++;
@@ -155,7 +157,7 @@ class _SearchState extends State<Search> {
               color: Color(0xFF5A1515),
               child: TextField(
                 controller: _searchController,
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.text,
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
