@@ -1,4 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:cantique_ebb_flutter/home2.dart';
 import 'package:cantique_ebb_flutter/search.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:cantique_ebb_flutter/home.dart';
@@ -41,7 +42,7 @@ class SplashScreen extends StatelessWidget {
           fit: BoxFit.cover,
         )),
       ),
-      nextScreen: /*Home()*/ Home(),
+      nextScreen: /*Home()*/ Home2(),
       duration: 3000,
       splashTransition: SplashTransition.fadeTransition,
       pageTransitionType: PageTransitionType.fade,

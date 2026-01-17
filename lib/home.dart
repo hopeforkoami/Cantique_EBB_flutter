@@ -42,12 +42,13 @@ class _HomeState extends State<Home> {
               color: Color(0xFF5A1515),
               child: Row(
                 children: [
-                  IconButton(
-                    icon: const Icon(Icons.menu, size: 30, color: Colors.white),
-                    onPressed: () {
-                      // ...
-                    },
-                  ),
+                  // IconButton(
+                  //   icon: const Icon(Icons.menu, size: 30, color: Colors.white),
+                  //   onPressed: () {
+                  //     // ...
+                  //   },
+                  // ),
+                  Expanded(child: Container()),
                   Text("Cantique",
                       style: TextStyle(
                           color: Colors.white,
